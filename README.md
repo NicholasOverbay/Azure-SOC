@@ -1,9 +1,10 @@
 # Building a SOC + Honeynet in Azure (Live Traffic)
-![Cloud Honeynet / SOC](https://i.imgur.com/ZWxe03e.jpg)
+![Cloud Honeynet / SOC](https://github.com/user-attachments/assets/05546d96-53ca-4c17-9a5c-31e485747f4d)
+
 
 ## Introduction
 
-In this project, I build a mini honeynet in Azure and ingest log sources from various resources into a Log Analytics workspace, which is then used by Microsoft Sentinel to build attack maps, trigger alerts, and create incidents. I measured some security metrics in the insecure environment for 24 hours, apply some security controls to harden the environment, measure metrics for another 24 hours, then show the results below. The metrics we will show are:
+In this project, I built a mini honeynet in Azure and ingest log sources from various resources into a Log Analytics workspace, which is then used by Microsoft Sentinel to build attack maps, trigger alerts, and create incidents. I measured some security metrics in the ussecure environment for 24 hours, apply some security controls to harden the environment, measure metrics for another 24 hours, then show the results below. The metrics we will show are:
 
 - SecurityEvent (Windows Event Logs)
 - Syslog (Linux Event Logs)
@@ -32,38 +33,59 @@ For the "BEFORE" metrics, all resources were originally deployed, exposed to the
 For the "AFTER" metrics, Network Security Groups were hardened by blocking ALL traffic with the exception of my admin workstation, and all other resources were protected by their built-in firewalls as well as Private Endpoint
 
 ## Attack Maps Before Hardening / Security Controls
-![NSG Allowed Inbound Malicious Flows](https://i.imgur.com/1qvswSX.png)<br>
-![Linux Syslog Auth Failures](https://i.imgur.com/G1YgZt6.png)<br>
-![Windows RDP/SMB Auth Failures](https://i.imgur.com/ESr9Dlv.png)<br>
+NSG Allowed Inbound Malicious Flows ![Screenshot 2024-11-23 105121](https://github.com/user-attachments/assets/ca646453-558e-49bc-a412-da56cdb23366)
+<br>
+Linux Syslog Auth Failures ![Screenshot 2024-11-23 105548](https://github.com/user-attachments/assets/9c36a686-fb37-4591-adb9-f5427b98dfef)
+<br>
+Windows RDP/SMB Auth Failures ![Screenshot 2024-11-23 105818](https://github.com/user-attachments/assets/8cd8444b-e383-4157-93ee-e061dce36f28)
+<br>
 
 ## Metrics Before Hardening / Security Controls
 
 The following table shows the metrics we measured in our insecure environment for 24 hours:
-Start Time 2023-03-15 17:04:29
-Stop Time 2023-03-16 17:04:29
+
+Start Time 2024-11-22 15:16:00
+
+Stop Time 2024-11-23 15:16:00
 
 | Metric                   | Count
 | ------------------------ | -----
-| SecurityEvent            | 19470
-| Syslog                   | 3028
-| SecurityAlert            | 10
-| SecurityIncident         | 348
-| AzureNetworkAnalytics_CL | 843
+| SecurityEvent            | 15044
+| Syslog                   | 18256
+| SecurityAlert            | 0
+| SecurityIncident         | 224
+| AzureNetworkAnalytics_CL | 3462
 
-## Attack Maps Before Hardening / Security Controls
+## Attack Maps After Hardening / Security Controls
 
 ```All map queries actually returned no results due to no instances of malicious activity for the 24 hour period after hardening.```
+![Screenshot 2024-12-05 092440](https://github.com/user-attachments/assets/b6ce6912-3926-4071-aadb-324bbf2689f5)
+
+Zero NSG Allowed Inbound Malicious Flows 
+
+![Screenshot 2024-11-27 155916](https://github.com/user-attachments/assets/e3a9e63e-c857-41df-b47f-6d8e657d6922)
+
+Zero Linux Syslog Auth Failures
+
+![Screenshot 2024-11-27 160041](https://github.com/user-attachments/assets/2980874a-4cce-481c-8707-ccbf179fb129)
+
+Zero Windows RDP/SMB Auth Failures
+
+![Screenshot 2024-11-27 155833](https://github.com/user-attachments/assets/30c48b0f-a0e4-428c-a97d-682f946fe83e)
+
 
 ## Metrics After Hardening / Security Controls
 
 The following table shows the metrics we measured in our environment for another 24 hours, but after we have applied security controls:
-Start Time 2023-03-18 15:37
-Stop Time	2023-03-19 15:37
+
+Start Time 2024-11-26 20:39
+
+Stop Time	2024-11-27 20:39
 
 | Metric                   | Count
 | ------------------------ | -----
-| SecurityEvent            | 8778
-| Syslog                   | 25
+| SecurityEvent            | 389
+| Syslog                   | 02
 | SecurityAlert            | 0
 | SecurityIncident         | 0
 | AzureNetworkAnalytics_CL | 0
